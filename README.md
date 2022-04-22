@@ -15,7 +15,7 @@ BOTH OF THESE OPTIONS WILL OVERWRITE ANY CURRENT CONFIG WITH THE SAME FILENAMES!
 As usual you can just copy everything into `~/.config`
 ```
 git clone https://github.com/RandomExplosion/dotfiles
-cp dotfiles/* ~/.config
+cp -r dotfiles/* ~/.config
 ```
 
 ### Option 2 - Symlinks
