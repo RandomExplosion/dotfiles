@@ -278,7 +278,7 @@ exec --no-startup-id ~/.screenlayout/monitor.sh
 exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart/
 
 # Start compositor 
-exec --no-startup-id picom
+exec --no-startup-id picom --experimental-backends
 
 # Set wallpaper (not needed with pywal)
 # exec --no-startup-id nitrogen --restore
