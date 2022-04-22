@@ -1,6 +1,8 @@
-echo Targeting Directory $1
-echo WARNING: This will overwrite conflicting config files in the target directory. Make sure you have made a backup before doing this.
-
+echo Targeting Directory $1...
+echo  
+echo WARNING: This will overwrite conflicting config files in the target directory.
+echo Make sure you have made a backup before doing this.
+echo 
 # Prompt for confirmation
 read -r -p "Are you sure you wish to continue? [y/N] " input
 case $input in
