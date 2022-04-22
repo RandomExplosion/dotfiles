@@ -224,6 +224,11 @@ set $ws10 "10"
 #workspace $ws4 output HDMI-0
 #workspace $ws5 output HDMI-0
 
+# WORKSPACE->OUTPUT OVERRIDE KEYBINDS
+# Keybinds to move a workspace between outputs
+bindsym $mod+Shift+braceright    move workspace to output right
+bindsym $mod+Shift+braceleft    move workspace to output left
+
 # PROGRAM->WORKSPACE BINDINGS
 # Set default startup workspace for specific applications:
 assign [class="Alacritty"] $ws1
