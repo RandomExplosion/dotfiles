@@ -4,8 +4,10 @@ These are the dotfiles I use for my linux installs
 ## Packages
 - WM: i3-gaps
 - Bar: polybar
-- Theming: pywal
 - Terminal Emulator: alacritty
+- Shell: zsh (+oh my zsh)
+- Shell Theme: powerlevel10k
+- Theming: pywal
 - Notes: Obsidian
 
 ## Installation
