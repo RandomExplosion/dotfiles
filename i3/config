@@ -1,0 +1,296 @@
+###########
+# GENERAL #
+###########
+
+# Set up Clipboard for use across windows (SWAY ONLY)
+# exec wl-paste -t text --watch clipman store --no-persist
+
+# Application preferences
+# Terminal Emulator
+set $term alacritty
+set $launcher dmenu 
+# TODO: LAUNCHER WOFI ABOVE
+
+######################
+# INPUT - (SWAY ONLY)#
+######################
+
+# List Inputs with $ sway-msg -t get_inputs
+# see `man 5 sway-input`
+#input "1739:52761:SYNA30B7:00_06CB:CE19_Touchpad" {
+#    dwt enabled
+#    tap enabled
+#    natural_scroll disabled
+#    middle_emulation enabled
+#}
+
+########################
+# OUTPUT - (SWAY ONLY) #
+########################
+
+# List Outputs with $ sway-msg -t get_outputs
+# output eDP-1 resolution 1920x1080 position 1920,0 
+
+# Wallpaper
+#set $wallpaperpath /usr/share/wallpapers/some-wallpaper.png
+#output "*" bg $wallpaperpath fill
+
+#####################
+# IDLE - (SWAY ONLY)#
+#####################
+
+#Lock screens after 300 seconds inactivity
+#Turn off screens after another 300 seconds
+#The screen will wake up when the period of inactivity ends
+# The screen will also lock before the device goes to sleep
+#exec swayidle -w \
+#    timeout 300 'swaylock -f -c 000000'\
+#    timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#    before-sleep 'swaylock -f -c 000000'
+
+#############################
+# KEYBINDS - MOVE AND FOCUS #
+#############################
+
+# Use super (windows) key as mod
+set $mod Mod4
+# Use alt key as alt
+set $alt Mod1
+
+# Use the home row (vim) direction keys
+set $left h
+set $right l
+set $down j
+set $up k
+
+# Change focus
+bindsym $mod+$left  focus left
+bindsym $mod+$right focus right
+bindsym $mod+$down  focus down
+bindsym $mod+$up    focus up
+
+# Move focused window
+bindsym $mod+Shift+$left  move left
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+$down  move down
+bindsym $mod+Shift+$up    move up
+
+# Switch Workspaces
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+
+# Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+floating_modifier $mod
+
+# Move focused window to scratchpad (minimising)
+bindsym $mod+Shift+minus move scratchpad
+
+# Show next scratchpad window
+bindsym $mod+minus scratchpad show
+
+#####################
+# KEYBINDS - LAYOUT #
+#####################
+
+# Split vertical and horizontal
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+# Switch container layout style
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle fullscreen
+bindsym $mod+f fullscreen
+
+# Toggle tiling/floating
+bindsym $mod+Shift+space floating toggle
+
+# Move focus between tiling and floating areas
+bindsym $mod+space focus mode_toggle
+
+# Move focus to parent container
+bindsym $mod+a focus parent
+
+# TODO: RESIZE
+
+######################
+# KEYBINDS - GENERAL #
+######################
+
+# Terminal Quick Launch
+bindsym $mod+Return exec --no-startup-id $term
+
+# Obsidian Quick Launch
+bindsym $mod+o exec --no-startup-id obsidian
+
+# Firefox Quick Launch
+bindsym $mod+Shift+w exec --no-startup-id firefox
+
+# Take Screenshots
+bindsym $mod+Shift+s exec --no-startup-id flameshot gui
+
+# Reload Config
+bindsym $mod+Shift+c reload
+
+# Restart i3/(May or may not work for sway)
+bindsym $mod+$alt+c restart
+
+# Application Launcher
+bindsym $mod+d exec --no-startup-id rofi -show drun $HOME/.config/rofi/launcher.rofi
+
+# Kill focused window
+bindsym $mod+c kill
+
+# SHUTDOWN/EXIT
+#TODO: SHUTDOWN WOFI MENU
+
+################################
+# KEYBINDS - MULTIMEDIA OUTPUT #
+################################
+
+# Brightness
+set $bri-incriment 10
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight +$bri-incriment
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -$bri-incriment
+
+# Volume adjustment incriments
+set $vol-incriment 5
+set $gran-vol-incriment 1
+
+# Volume UP
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i $vol-increment --allow-boost
+ #&& dunstify -h string:x-dunst-stack-tag:volume volume: $(pamixer --get-volume)%
+# Volume DON
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d $vol-increment --allow-boost 
+#&& dunstify -h string:x-dunst-stack-tag:volume volume: $(pamixer --get-volume)%
+# Volume MUTE
+bindsym XF86AudioMute exec --no-startup-id pamixer -t
+# && dunstify -h string:x-dunst-stack-tag:mute mute: $(pamixer --get-mute)!
+# Granular Volume Control
+bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id amixer  -D pulse sset Master $gran-vol-incriment%+ 
+#&& pkill -RTMIN+1 i3blocks
+bindsym $mod+XF86AudioLowerVolume exec --no-startup-id amixer  -D pulse sset Master $gran-vol-incrument%-
+# && pkill -RTMIN+1 i3blocks
+
+####################################
+# WORKSPACES AND WORKSPACE BINDIGS #
+####################################
+
+# Name your workspaces as you like here
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:ﴬ"
+set $ws4 "4:ﭮ"
+set $ws5 "5:"
+set $ws6 "6:"
+set $ws7 "7:"
+set $ws8 "8:"
+set $ws9 "9"
+set $ws10 "10"
+
+# WORKSPACE->OUTPUT BINDINGS
+# Assign workspaces to default outputs
+# Get output names from xrandr or arandr (i3/xorg) or $ sway-msg -t get_outputs (sway/wayland)  
+#workspace $ws1 output VGA-0
+#workspace $ws2 output VGA-0
+#workspace $ws3 output HDMI-0
+#workspace $ws4 output HDMI-0
+#workspace $ws5 output HDMI-0
+
+# PROGRAM->WORKSPACE BINDINGS
+# Set default startup workspace for specific applications:
+assign [class="Alacritty"] $ws1
+assign [class="(?i)firefox"] $ws2
+assign [class="discord"] $ws4
+assign [class="prospectmail"] $ws4
+assign [class="Steam"] $ws5
+assign [class="obsidian"] $ws3
+assign [class="Thunar"] $ws6
+assign [class="Thunderbird"] $ws4
+assign [class="TelegramDesktop"] $ws4
+assign [class="nitrogen"] $ws6
+assign [class="Codium"] $ws7
+assign [class="soundux"] $ws8
+
+# AUTOFOCUS
+# Automatically focus certain apps when they start up
+for_window [class=(?i)firefox] focus
+#for_window [class=Thunar] focus
+#for_window [class=Thunderbird] focus
+#for_window [class=TelegramDesktop] focus
+
+##############
+# APPEARANCE #
+##############
+
+# Font for window titles
+font pango:Fira Code Nerd Font Bold 10
+
+# Gaps
+gaps inner 8
+gaps outer 4
+gaps bottom 39
+
+# Borders
+default_border pixel 1
+
+#####################
+# STARTUP - i3 ONLY #
+#####################
+
+# Load XResources
+exec --no-startup-id xrdb -merge $HOME/.cache/wal/colors.Xresources
+
+# Start Polkit-Gnome to handle UAC prompts
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# Display Setup (export from arandr as monitor)
+exec --no-startup-id ~/.screenlayout/monitor.sh
+
+# Autostart applications using dex
+exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart/
+
+# Start compositor 
+exec --no-startup-id picom
+
+# Set wallpaper (not needed with pywal)
+# exec --no-startup-id nitrogen --restore
+
+# Restore Pywal Colour Scheme and Wallpaper
+exec --no-startup-id wal -R
+
+# Start notifications service (dunst)
+exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
+
+# Set power savings
+exec --no-startup-id xset s 480 dpms 600 600 600
+
+# Start Bar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh -r
