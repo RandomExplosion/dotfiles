@@ -11,10 +11,20 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 # Directory For Config Files
 DIR="$HOME/.config/polybar"
 
-# Launch bar1 and bar2
-echo "---" | tee -a /tmp/polybarL.log /tmp/polybarR.log
-#polybar -c "$DIR/config.ini" -r  bottombarL 2>&1 | tee -a /tmp/polybarL.log & disown
-#polybar -c "$DIR/config.ini" -r  bottombarR 2>&1 | tee -a /tmp/polybarR.log & disown
-polybar -c "$DIR/laptop.ini" -r bottombar 2>&1 | tee -a /tmp/polybarB.log & disown
+###############
+# LAUNCH BARS #
+###############
+
+# BOTTOM BAR
+
+# Add restart marker to log 
+echo "---" | tee -a /tmp/polybar-b.log 
+polybar -c "$DIR/generic-bars.ini" -r bottombar 2>&1 | tee -a /tmp/polybar-b.log
+
+# TOP BAR (Not included in this config but if you add one to generic-bars.ini uncomment these lines)
+
+# Add restart marker to log
+# echo "---" | tee -a /tmp/polybar-t.log
+# polybar -c "$DIR/generic-bars.ini" -r topbar 2>&1 | tee -a /tmp/polybar-t.log
 
 echo "Bars launched..."
