@@ -15,16 +15,16 @@ DIR="$HOME/.config/polybar"
 # LAUNCH BARS #
 ###############
 
-# BOTTOM BAR
+# BOTTOM LEFT BAR
 
 # Add restart marker to log 
-echo "---" | tee -a /tmp/polybar-b.log 
-polybar -c "$DIR/generic-bars.ini" -r bottombar 2>&1 | tee -a /tmp/polybar-b.log
+echo "---" | tee -a /tmp/polybar-bl.log 
+polybar -c "$DIR/desktop.ini" -r bottomleftbar 2>&1 | tee -a /tmp/polybar-bl.log
 
-# TOP BAR (Not included in this config but if you add one to generic-bars.ini uncomment these lines)
+# BOTTOM RIGHT BAR
 
-# Add restart marker to log
-# echo "---" | tee -a /tmp/polybar-t.log
-# polybar -c "$DIR/generic-bars.ini" -r topbar 2>&1 | tee -a /tmp/polybar-t.log
+# Add restart marker to log 
+echo "---" | tee -a /tmp/polybar-br.log 
+polybar -c "$DIR/desktop.ini" -r bottomrightbar 2>&1 | tee -a /tmp/polybar-br.log
 
 echo "Bars launched..."
