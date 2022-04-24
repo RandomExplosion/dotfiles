@@ -19,7 +19,7 @@ DIR="$HOME/.config/polybar"
 
 # Add restart marker to log 
 echo "---" | tee -a /tmp/polybar-b.log 
-polybar -c "$DIR/generic-bars.ini" -r bottombar 2>&1 | tee -a /tmp/polybar-b.log
+polybar -c "$DIR/generic-bars.ini" -r bottombar 2>&1 | tee -a /tmp/polybar-b.log & disown
 
 # TOP BAR (Not included in this config but if you add one to generic-bars.ini uncomment these lines)
 
