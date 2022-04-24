@@ -19,12 +19,12 @@ DIR="$HOME/.config/polybar"
 
 # Add restart marker to log 
 echo "---" | tee -a /tmp/polybar-bl.log 
-polybar -c "$DIR/desktop.ini" -r bottomleftbar 2>&1 | tee -a /tmp/polybar-bl.log
+polybar -c "$DIR/desktop.ini" -r bottomleftbar 2>&1 | tee -a /tmp/polybar-bl.log & disown
 
 # BOTTOM RIGHT BAR
 
 # Add restart marker to log 
 echo "---" | tee -a /tmp/polybar-br.log 
-polybar -c "$DIR/desktop.ini" -r bottomrightbar 2>&1 | tee -a /tmp/polybar-br.log
+polybar -c "$DIR/desktop.ini" -r bottomrightbar 2>&1 | tee -a /tmp/polybar-br.log & disown
 
 echo "Bars launched..."
