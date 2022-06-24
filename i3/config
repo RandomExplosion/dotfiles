@@ -176,13 +176,13 @@ bindsym $mod+c kill
 ################################
 
 # Brightness
-set $bri-incriment 10
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight +$bri-incriment
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -$bri-incriment
+set $bri-increment 10
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight +$bri-increment
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -$bri-increment
 
-# Volume adjustment incriments
-set $vol-incriment 5
-set $gran-vol-incriment 1
+# Volume adjustment increments
+set $vol-increment 5
+set $gran-vol-increment 1
 
 # Volume UP
 bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i $vol-increment --allow-boost
@@ -194,9 +194,9 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d $vol-increment --al
 bindsym XF86AudioMute exec --no-startup-id pamixer -t
 # && dunstify -h string:x-dunst-stack-tag:mute mute: $(pamixer --get-mute)!
 # Granular Volume Control
-bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id amixer  -D pulse sset Master $gran-vol-incriment%+ 
+bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id pamixer -i $gran-vol-increment --allow-boost 
 #&& pkill -RTMIN+1 i3blocks
-bindsym $mod+XF86AudioLowerVolume exec --no-startup-id amixer  -D pulse sset Master $gran-vol-incrument%-
+bindsym $mod+XF86AudioLowerVolume exec --no-startup-id pamixer -i $gran-vol-incrument --allow-boost
 # && pkill -RTMIN+1 i3blocks
 
 ####################################
