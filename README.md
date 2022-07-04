@@ -7,7 +7,7 @@ These are the dotfiles I use for my linux installs
 - Terminal Emulator: alacritty
 - Shell: zsh (+oh my zsh)
 - Shell Theme: powerlevel10k
-- Theming: pywal
+- Theming: pywal + xresources (for polybar)
 - Notes: Obsidian
 
 ## Installation
