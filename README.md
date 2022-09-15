@@ -5,9 +5,9 @@ These are the dotfiles I use for my linux installs
 - WM: i3-gaps
 - Bar: polybar
 - Terminal Emulator: alacritty
-- Shell: zsh (+oh my zsh)
+- Shell: zsh (+oh my zsh optional)
 - Shell Theme: powerlevel10k
-- Theming: pywal
+- Theming: pywal + xresources (for polybar)
 - Notes: Obsidian
 
 ## Installation
