@@ -163,7 +163,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+$alt+c restart
 
 # Application Launcher
-bindsym $mod+d exec --no-startup-id rofi -show drun $HOME/.config/rofi/launcher.rofi
+bindsym $mod+d exec --no-startup-id rofi -show drun $HOME/.config/rofi/launcher.rasi
 
 # Kill focused window
 bindsym $mod+c kill
