@@ -3,7 +3,7 @@
 ###########
 
 # Set up Clipboard for use across windows (SWAY ONLY)
-# exec wl-paste -t text --watch clipman store --no-persist
+exec wl-paste -t text --watch clipman store --no-persist
 
 # Application preferences
 # Terminal Emulator
@@ -17,23 +17,23 @@ set $launcher dmenu
 
 # List Inputs with $ sway-msg -t get_inputs
 # see `man 5 sway-input`
-#input "1739:52761:SYNA30B7:00_06CB:CE19_Touchpad" {
-#    dwt enabled
-#    tap enabled
-#    natural_scroll disabled
-#    middle_emulation enabled
-#}
+input "1739:52761:SYNA30B7:00_06CB:CE19_Touchpad" {
+    dwt enabled
+    tap enabled
+    natural_scroll disabled
+    middle_emulation enabled
+}
 
 ########################
 # OUTPUT - (SWAY ONLY) #
 ########################
 
 # List Outputs with $ sway-msg -t get_outputs
-# output eDP-1 resolution 1920x1080 position 1920,0 
+output eDP-1 resolution 1920x1080 position 1920,0 
 
 # Wallpaper
-#set $wallpaperpath /usr/share/wallpapers/some-wallpaper.png
-#output "*" bg $wallpaperpath fill
+set $wallpaperpath /usr/share/wallpapers/some-wallpaper.png
+output "*" bg $wallpaperpath fill
 
 #####################
 # IDLE - (SWAY ONLY)#
@@ -43,10 +43,10 @@ set $launcher dmenu
 #Turn off screens after another 300 seconds
 #The screen will wake up when the period of inactivity ends
 # The screen will also lock before the device goes to sleep
-#exec swayidle -w \
-#    timeout 300 'swaylock -f -c 000000'\
-#    timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-#    before-sleep 'swaylock -f -c 000000'
+exec swayidle -w \
+    timeout 300 'swaylock -f -c 000000'\
+    timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+    before-sleep 'swaylock -f -c 000000'
 
 #############################
 # KEYBINDS - MOVE AND FOCUS #
@@ -185,18 +185,18 @@ set $vol-increment 5
 set $gran-vol-increment 1
 
 # Volume UP
-bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i $vol-increment --allow-boost
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i $vol-increment --allow-boost
  #&& dunstify -h string:x-dunst-stack-tag:volume volume: $(pamixer --get-volume)%
 # Volume DON
-bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d $vol-increment --allow-boost 
+#bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d $vol-increment --allow-boost 
 #&& dunstify -h string:x-dunst-stack-tag:volume volume: $(pamixer --get-volume)%
 # Volume MUTE
-bindsym XF86AudioMute exec --no-startup-id pamixer -t
+#bindsym XF86AudioMute exec --no-startup-id pamixer -t
 # && dunstify -h string:x-dunst-stack-tag:mute mute: $(pamixer --get-mute)!
 # Granular Volume Control
-bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id pamixer -i $gran-vol-increment --allow-boost 
+#bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id pamixer -i $gran-vol-increment --allow-boost 
 #&& pkill -RTMIN+1 i3blocks
-bindsym $mod+XF86AudioLowerVolume exec --no-startup-id pamixer -i $gran-vol-incrument --allow-boost
+#bindsym $mod+XF86AudioLowerVolume exec --no-startup-id pamixer -i $gran-vol-incrument --allow-boost
 # && pkill -RTMIN+1 i3blocks
 
 ####################################
@@ -271,31 +271,31 @@ default_border pixel 1
 #####################
 
 # Load XResources
-exec --no-startup-id xrdb -merge $HOME/.cache/wal/colors.Xresources
+#exec --no-startup-id xrdb -merge $HOME/.cache/wal/colors.Xresources
 
 # Start Polkit-Gnome to handle UAC prompts
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # Display Setup (export from arandr as monitor)
-exec --no-startup-id ~/.screenlayout/monitor.sh
+#exec --no-startup-id ~/.screenlayout/monitor.sh
 
 # Autostart applications using dex
-exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart/
+#exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart/
 
 # Start compositor 
-exec --no-startup-id picom --experimental-backends
+#exec --no-startup-id picom --experimental-backends
 
 # Set wallpaper (not needed with pywal)
 # exec --no-startup-id nitrogen --restore
 
 # Restore Pywal Colour Scheme and Wallpaper
-exec --no-startup-id wal -R
+#exec --no-startup-id wal -R
 
 # Start notifications service (dunst)
-exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
+#exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 
 # Set power savings
-exec --no-startup-id xset s 480 dpms 600 600 600
+#exec --no-startup-id xset s 480 dpms 600 600 600
 
 # Start Bar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh -r
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh -r
