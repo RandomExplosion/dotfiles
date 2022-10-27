@@ -1,0 +1,106 @@
+; Battery Charge Indicator
+
+(defwidget bat_indicator [bat_critical bat_low bat_normal bat_medium bat_full battery
+                          bat_status bat_charging]
+  (box 
+    :space-evenly false :spacing 0 :class "bat_bound"
+    (label 
+      :class "bat_icon glyph" 
+      :text "${bat_status == "Charging" ? bat_charging : 
+                   battery > 90 ? bat_full : 
+                   battery > 50 ? bat_medium :
+                   battery > 25 ? bat_normal :
+                   battery > 15 ? bat_low : bat_critical}")
+    (box
+      (revealer
+        :transition "slideleft"
+        :reveal "${net_hover == true ? "false" :
+                unit_hover == true ? "false" : "true" }"
+        (label 
+          :class "bat_text" :text "${battery}%")))))
+
+(defwidget notif_bell []
+ (eventbox 
+          :cursor "pointer"
+          :onclick notif_switch
+   (label :class "${notif_initial != "" ? "notif_icon" : "notif_icon_off"} notif_bell"
+          :text "${notif_initial}")))
+
+(defwidget cpu_temp_text []
+ (eventbox 
+   :tooltip "Current CPU temperature" 
+     (box 
+       :space-evenly false :spacing 0
+       (label 
+        :class "${cpu_temp >= 60 ? "cpu_hot glyph_awesome" : "cpu_normal glyph"}"
+        :text "${cpu_temp >= 60 ? "" : "瑩"}")
+       (revealer
+            :transition "slideright"
+            :reveal "${usage_hover == true ? "false" : "true" }"
+           (label 
+             :class "${cpu_temp >= 60 ? "cpu_hot cpu_text" : "cpu_normal"}"
+             :text "${cpu_temp}°C")))))
+
+; (defwidget layout_state []
+;  (box
+;    (label 
+;      :limit-width 1 :class "window_state glyph"
+;      :text "${layout_var}")))
+
+; (defwidget sticky_title []
+;   (box
+;     (label 
+;       :limit-width 1 :class "window_state glyph"
+;       :text "${sticky_var}")))
+
+(defwidget title_bar []
+  (box
+    :space-evenly false :spacing 0
+    (label
+      :limit-width 60
+      :class "window_title"
+      :text "${window_title}")))
+
+(defwidget network_speed []
+  (box
+    (revealer 
+      :transition "slideleft"
+      :reveal "${net_hover == true ? "false" :
+                unit_hover == true ? "false" :
+                usage_hover == true ? "false" :
+                work_space_hover == true ? "false" : 
+                launcher_hover == true ? "false" : speed_hover }"
+      (box
+        :class "speed_box"
+        :space-evenly false :spacing 0
+        (box
+          :orientation "v" :space-evenly false
+          :spacing 0 :valign "end"
+    
+          (box
+            :orientation "h" :space-evenly false :spacing 0
+            (label
+              :class "net_icon glyph_awesome" :text "")
+            (label 
+              :class "net_speed"
+              :text "${u_speed}"))
+          (box
+            :orientation "h" :space-evenly false :spacing 0
+            (label
+              :class "net_icon glyph_awesome" :text "")
+            (label            
+              :class "net_speed"
+              :text "${d_speed}")))))))
+
+(defwidget date []
+ (box 
+   :space-evenly false
+  (label 
+    :class "date" :text time)))
+
+(defwidget system_tray []
+  (eventbox 
+    :cursor "pointer" :onclick tray_toggle
+    (label
+      :class "system_tray glyph_awesome"
+      :text "${tray_initial}")))

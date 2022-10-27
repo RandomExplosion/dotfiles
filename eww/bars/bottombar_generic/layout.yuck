@@ -1,0 +1,17 @@
+; 
+;   This file contains the widgets that arrange the modules in the Bar
+;
+(defwidget left_box[]
+  (box :class "left_box" :orientation "h" :space-evenly false :halign "start" :spacing 0 
+    (workspace_box)
+  ))
+
+(defwidget center_box[]
+  (box :class "center_box" :orientation "h" :space-evenly false :halign "center" :spacing 0))
+    
+(defwidget right_box[]
+  (box :class "right_box" :orientation "h" :space-evenly false :halign "end" :spacing 0
+;    (access_box)
+    (audio_box)
+  ))
+

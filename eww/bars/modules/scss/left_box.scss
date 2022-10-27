@@ -1,0 +1,97 @@
+.launcher>box {
+    @extend .container_box;
+    transition: all 0.5s ease;
+}
+
+.launcher {
+    color: $background;
+    font-size: 25px;
+}
+
+.launcher:hover>box {
+    background-color: $color2;
+}
+
+.launcher:hover {
+    color: white;
+}
+
+.workspace_box {
+    @extend .container_box;
+    background-color: mix($background, transparent, 80%);
+    margin: 5px 0px;
+    border-radius: 8px;
+    font-family: "MesloLGS NF";
+    font-weight: bold;
+}
+
+.workspace_button {
+    margin: 5px 0px;
+    border-radius: 8px;
+    padding: 5px 0px;
+    background-color: $background;
+    color: $color2;
+}
+
+.focused_workspace {
+    color: $color6;
+}
+
+.occupied_workspace {
+    color: $color2;
+}
+
+.empty_workspace {
+    color: $foreground;
+}
+
+.focused_workspace,
+.occupied_workspace,
+.empty_workspace {
+    @extend .glyph_meslo;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-left: 1px;
+    // margin-right: 1px;
+}
+
+.cpu_usage,
+.cpu_usage_text {
+    color: $color4;
+}
+
+.cpu_usage_text {
+    padding: 0px 0px 0px 4px;
+}
+
+.mem_usage,
+.mem_usage_text {
+    color: $color6;
+}
+
+.mem_usage {
+    padding: 0px 1px 0px 0px;
+}
+
+.mem_usage_text {
+    padding: 0px 0px 0px 4px;
+}
+
+.stat_bolt {
+    color: $color8;
+}
+
+.stat_bolt_off {
+    color: $foreground;
+    padding: 0px 0px 0px 5px;
+}
+
+.stat_red {
+    color: $color1;
+}
+
+.audio_box {
+    @extend .container_box
+}
+
+@import "./widgets/floating_left.scss";

@@ -1,0 +1,57 @@
+;
+;   This file Contains all the module widgets available for use in bars
+;
+
+; WM Workspace Switcher
+(defwidget workspace_box[]
+    (eventbox
+        :vexpand true
+        :onhover "eww update work_space_hover=true"
+        :onhoverlost "eww update work_space_hover=false"
+    ;   :onscroll "[ {} = down ] && bspc desktop -f next; \
+    ;             [ {} = up ] && bspc desktop -f prev"
+
+    (box
+        :vexpand true :class "workspace_box"
+        (for index in work_space
+            (eventbox
+                :cursor "pointer"
+                :onclick "i3-msg workspace ${index.name}"
+                (label
+                    :class {index.focused ? "focused_workspace" : "occupied_workspace"} :text {index.name}))))))
+;    (label :text work_space))))
+
+; Box for system resource utilisation
+; TODO: Ram, Storage
+(defwidget resources_box []
+    (box
+        (cpu_usage_box)))
+
+; Box for sound stuff
+(defwidget audio_box []
+    (box :class "audio_box"
+        (mic_box :mic_vol_percent mic_current_vol)
+        (sound_box :vol_percent current_vol :vol_min "奄" :vol_mid "奔" :vol_max "墳" :vol_icon_off "OFF" :vol_num_off 0)))
+
+; Box for access related stuff
+; TODO: CPU Temperature
+(defwidget access_box []
+    (box
+        (nit_box)
+        (bat_indicator
+            :bat_critical "﫶"
+            :bat_low "﫹"
+            :bat_normal "﫺"
+            :bat_medium "﫸"
+            :bat_full "﫷"
+            :battery {EWW_BATTERY.BAT1.capacity}
+            :bat_status {EWW_BATTERY.BAT1.status}
+            :bat_charging "﫴")))
+
+; Box for networking stuff
+(defwidget network_box[]
+    (box
+        (network_speed)
+        (network
+            :wifi_text_off "wifi_text_off"
+            :wifi_icon_off "wifi_icon_off glyph")))

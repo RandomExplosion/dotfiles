@@ -1,0 +1,13 @@
+; True subscribers
+(deflisten work_space "./bars/scripts/workspace.zsh")
+(deflisten muted "./bars/scripts/sound_state.zsh -s")
+(deflisten current_vol "./bars/scripts/sound_state.zsh -v")
+(deflisten nit_level "./bars/scripts/nit_state.zsh")
+(deflisten mic_current_vol "./bars/scripts/sound_state.zsh -mic_vol")
+(deflisten window_title "./bars/scripts/window_title_fetch.zsh")
+(deflisten connect "./bars/scripts/network_manager.zsh") 
+
+; Psuedo subscribers
+(deflisten mic_initial "./bars/scripts/sound_state.zsh -mc")
+(deflisten notif_initial "./bars/scripts/notif_state.zsh -c")
+(deflisten tray_initial "./bars/scripts/system_tray.zsh -c")
