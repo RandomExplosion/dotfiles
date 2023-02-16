@@ -10,11 +10,11 @@ wrap() {
 pack() {
 #    workspaces+=`i3-msg -t get_workspaces | jshon -a -e name -u -p -e focused -u | sed -En -z "s/([^\n]*)\ntrue/$(tput smul)\1$(tput sgr0)\ntrue/pg" | awk 'NR%2==1' | xargs`
 #    workspaces+=`i3-msg -t get_workspaces | jshon -a -e name | sed -En -z "s/([^\n]*)\ntrue/$\"\1$\"\,\ntrue/pg" | xargs`
-    i3-msg -t get_workspaces
+    swaymsg -t get_workspaces | jq -r tostring
 }
 
 pack
-i3-msg -t subscribe -m '[ "window" ]' | while read -r _; do
+swaymsg -t subscribe -m '[ "window" ]' | while read -r _; do
     pack
 done
 

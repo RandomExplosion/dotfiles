@@ -7,11 +7,13 @@
   ))
 
 (defwidget center_box[]
-  (box :class "center_box" :orientation "h" :space-evenly false :halign "center" :spacing 0))
+  (box :class "center_box" :orientation "h" :space-evenly false :halign "center" :spacing 0
+    (resources_box)
+  ))
     
 (defwidget right_box[]
   (box :class "right_box" :orientation "h" :space-evenly false :halign "end" :spacing 0
-;    (access_box)
+    (access_box)
     (audio_box)
   ))
 

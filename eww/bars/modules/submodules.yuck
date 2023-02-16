@@ -85,16 +85,16 @@
             :space-evenly false :spacing 8
           (box 
               :space-evenly false 
-            (label :class "cpu_usage glyph" :text "")
-            (label :class "cpu_usage_text" :text "${cpu_load}%"))
+            (label :class "cpu_usage glyph" :text "󰻠")
+            (label :class "cpu_usage_text" :text "${round(EWW_CPU.avg,0)}%"))
           (eventbox
               :onrightclick "control_box -monitor &" :cursor "pointer"
             (box 
               :space-evenly false 
-              (label :class "mem_usage glyph_awesome" :text "")
-              (label :class "mem_usage_text" :text "${mem_load}")))))
+              (label :class "mem_usage glyph_awesome" :text "󰍛")
+              (label :class "mem_usage_text" :text "${round(EWW_RAM.used_mem_perc, 0)}% (${round(EWW_RAM.used_mem/1048576,0)} MiB - Wrong)")))))
       (label 
         :text 
-          "${usage_hover == false ? "ﲹ" : ""}"
+          "${usage_hover == false ? "" : ""}"
         :class "${usage_hover == false ? "stat_bolt glyph" :
                                          "stat_bolt_off glyph" }"))))

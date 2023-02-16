@@ -1,0 +1,15 @@
+# USE GBM instead of EGLSTREAMS
+GBM_BACKEND=nvidia-drm
+__GLX_VENDOR_LIBRARY_NAME=nvidia
+
+# Wayland Stuff
+GDK_BACKEND=x11
+
+# QT
+QT_QPA_PLATFORM=wayland
+QT_QPA_PLATFORMTHEME=qt5ct
+
+# Clutter
+CLUTTER_BACKEND=wayland
+
+

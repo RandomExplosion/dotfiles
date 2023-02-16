@@ -2,22 +2,61 @@
 # GENERAL #
 ###########
 
+# Fix for GTK Apps loading slowly
+exec systemctl --user import-environment
+
 # Set up Clipboard for use across windows (SWAY ONLY)
 exec wl-paste -t text --watch clipman store --no-persist
+
+# Launch Bottom Bar
+exec eww reload
+exec eww open bottombar
 
 # Application preferences
 # Terminal Emulator
 set $term alacritty
-set $launcher dmenu 
-# TODO: LAUNCHER WOFI ABOVE
+set $launcher tofi-drun 
+
+
+##############
+# APPEARANCE #
+##############
+
+# Load cached pywal colours
+include "$HOME/.cache/wal/colors-sway"
+
+# Set cached pywal colours
+client.focused $color0 $background $foreground $color7 $background
+
+# Background set later in # OUTPUTS #
+
+# Font for window titles
+font pango:Fira Code Nerd Font Bold 10
+
+# Gaps
+gaps outer 4
+gaps inner 8
+
+# Borders
+default_border pixel 1
 
 ######################
 # INPUT - (SWAY ONLY)#
 ######################
 
-# List Inputs with $ sway-msg -t get_inputs
+# List Inputs with $ swaymsg -t get_inputs
 # see `man 5 sway-input`
+
+# HP ELITEBOOK Touchpad
 input "1739:52761:SYNA30B7:00_06CB:CE19_Touchpad" {
+    dwt enabled
+    tap enabled
+    natural_scroll disabled
+    middle_emulation enabled
+}
+
+# DELL XPS Touchpad
+input "2:7:SynPS/2 Synaptics TouchPad" {
     dwt enabled
     tap enabled
     natural_scroll disabled
@@ -29,11 +68,10 @@ input "1739:52761:SYNA30B7:00_06CB:CE19_Touchpad" {
 ########################
 
 # List Outputs with $ sway-msg -t get_outputs
-output eDP-1 resolution 1920x1080 position 1920,0 
+output eDP-1 resolution 3840x2160 position 3840,0 
 
-# Wallpaper
-set $wallpaperpath /usr/share/wallpapers/some-wallpaper.png
-output "*" bg $wallpaperpath fill
+# Set Wallpaper (path read from pywal cache in # APPEARANCE #)
+output "*" background $wallpaper fill
 
 #####################
 # IDLE - (SWAY ONLY)#
@@ -44,9 +82,10 @@ output "*" bg $wallpaperpath fill
 #The screen will wake up when the period of inactivity ends
 # The screen will also lock before the device goes to sleep
 exec swayidle -w \
-    timeout 300 'swaylock -f -c 000000'\
-    timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-    before-sleep 'swaylock -f -c 000000'
+    timeout 300 'swaylock -f'\
+    timeout 600 'swaymsg "output * power off"'\
+     resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f -c'
 
 #############################
 # KEYBINDS - MOVE AND FOCUS #
@@ -163,7 +202,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+$alt+c restart
 
 # Application Launcher
-bindsym $mod+d exec --no-startup-id rofi -show drun $HOME/.config/rofi/launcher.rasi
+bindsym $mod+d exec tofi-drun --drun-launch=true
 
 # Kill focused window
 bindsym $mod+c kill
@@ -204,16 +243,16 @@ set $gran-vol-increment 1
 ####################################
 
 # Name your workspaces as you like here
-set $ws1 "1:"
-set $ws2 "2:"
-set $ws3 "3:ﴬ"
-set $ws4 "4:ﭮ"
-set $ws5 "5:"
-set $ws6 "6:"
-set $ws7 "7:"
-set $ws8 "8:"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1 1:
+set $ws2 2:
+set $ws3 3:ﴬ
+set $ws4 4:ﭮ
+set $ws5 5:
+set $ws6 6:
+set $ws7 7:
+set $ws8 8:
+set $ws9 9
+set $ws10 10
 
 # WORKSPACE->OUTPUT BINDINGS
 # Assign workspaces to default outputs
@@ -250,18 +289,6 @@ for_window [class=(?i)firefox] focus
 #for_window [class=Thunar] focus
 #for_window [class=Thunderbird] focus
 #for_window [class=TelegramDesktop] focus
-
-##############
-# APPEARANCE #
-##############
-
-# Font for window titles
-font pango:Fira Code Nerd Font Bold 10
-
-# Gaps
-gaps inner 8
-gaps outer 4
-gaps bottom 39
 
 # Borders
 default_border pixel 1

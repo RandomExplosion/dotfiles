@@ -20,6 +20,6 @@
                       :height "32px"
                       :anchor "bottom center")
   :reserve (struts :side "bottom" :distance "4%")
-  :stacking "bg"
-  :wm-ignore true
+  :stacking "fg"
+  :exclusive "true"
   (bottombar))

@@ -22,7 +22,7 @@
 ;    (label :text work_space))))
 
 ; Box for system resource utilisation
-; TODO: Ram, Storage
+; TODO: Storage
 (defwidget resources_box []
     (box
         (cpu_usage_box)))
@@ -36,17 +36,25 @@
 ; Box for access related stuff
 ; TODO: CPU Temperature
 (defwidget access_box []
-    (box
+    (box :class "access_box"
         (nit_box)
-        (bat_indicator
-            :bat_critical "﫶"
-            :bat_low "﫹"
-            :bat_normal "﫺"
-            :bat_medium "﫸"
-            :bat_full "﫷"
-            :battery {EWW_BATTERY.BAT1.capacity}
-            :bat_status {EWW_BATTERY.BAT1.status}
-            :bat_charging "﫴")))
+        (bat_indicator 
+            :bat_critical "['Discharging':'', 'Charging':'󰢟']"
+            :battery    {EWW_BATTERY != '' ? EWW_BATTERY.BAT1.capacity : "No Battery"  }
+            :bat_status {EWW_BATTERY != '' ? EWW_BATTERY.BAT1.status   : '' }
+            :bat_removed "󱉝"
+            :bat_icon_set "[
+                '100' : '[`Discharging`: `󰁹`,`Charging`:`󰂅`]',
+                '090' : '[`Discharging`: `󰂂`,`Charging`:`󰂋`]',
+                '080' : '[`Discharging`: `󰂁`,`Charging`:`󰂊`]',
+                '070' : '[`Discharging`: `󰂀`,`Charging`:`󰢞`]',
+                '060' : '[`Discharging`: `󰁿`,`Charging`:`󰂉`]',
+                '050' : '[`Discharging`: `󰁾`,`Charging`:`󰢝`]',
+                '040' : '[`Discharging`: `󰁽`,`Charging`:`󰂈`]',
+                '030' : '[`Discharging`: `󰁼`,`Charging`:`󰂇`]',
+                '020' : '[`Discharging`: `󰁻`,`Charging`:`󰂆`]',
+                '010' : '[`Discharging`: `󰁺`,`Charging`:`󰢜`]',
+                '000' : '[`Discharging`: `󱟩`,`Charging`:`󰢟`]']")))
 
 ; Box for networking stuff
 (defwidget network_box[]
