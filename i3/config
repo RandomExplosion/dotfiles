@@ -2,8 +2,11 @@
 # GENERAL #
 ###########
 
+# Don't use xwayland (gross)
+xwayland disable
+
 # Fix for GTK Apps loading slowly
-exec systemctl --user import-environment
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 # Set up Clipboard for use across windows (SWAY ONLY)
 exec wl-paste -t text --watch clipman store --no-persist
@@ -12,11 +15,16 @@ exec wl-paste -t text --watch clipman store --no-persist
 exec eww reload
 exec eww open bottombar
 
+# Launch Dropbox
+exec dropbox
+
 # Application preferences
 # Terminal Emulator
 set $term alacritty
 set $launcher tofi-drun 
 
+# Set Compose Key to PrtScr
+exec swaymsg 'input * xkb_options compose:prsc'
 
 ##############
 # APPEARANCE #
@@ -56,12 +64,14 @@ input "1739:52761:SYNA30B7:00_06CB:CE19_Touchpad" {
 }
 
 # DELL XPS Touchpad
-input "2:7:SynPS/2 Synaptics TouchPad" {
+input "2:7:SynPS/2_Synaptics_TouchPad" {
     dwt enabled
-    tap enabled
-    natural_scroll disabled
+    tap disabled
+    natural_scroll enabled
     middle_emulation enabled
 }
+
+#input * natural_scroll enabled
 
 ########################
 # OUTPUT - (SWAY ONLY) #
@@ -69,6 +79,8 @@ input "2:7:SynPS/2 Synaptics TouchPad" {
 
 # List Outputs with $ sway-msg -t get_outputs
 output eDP-1 resolution 3840x2160 position 3840,0 
+
+output HDMI-A-1 resolution 1920x1080
 
 # Set Wallpaper (path read from pywal cache in # APPEARANCE #)
 output "*" background $wallpaper fill
@@ -82,10 +94,10 @@ output "*" background $wallpaper fill
 #The screen will wake up when the period of inactivity ends
 # The screen will also lock before the device goes to sleep
 exec swayidle -w \
-    timeout 300 'swaylock -f'\
-    timeout 600 'swaymsg "output * power off"'\
+    timeout 300 'swaylock -f -i "$wallpaper" --effect-blur 10x1'\
+    timeout 300 'swaymsg "output * power off"'\
      resume 'swaymsg "output * power on"' \
-    before-sleep 'swaylock -f -c'
+    before-sleep 'swaylock -f -i "$wallpaper" --effect-blur 10x1'
 
 #############################
 # KEYBINDS - MOVE AND FOCUS #
@@ -215,9 +227,9 @@ bindsym $mod+c kill
 ################################
 
 # Brightness
-set $bri-increment 10
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight +$bri-increment
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -$bri-increment
+set $bri-increment 5
+bindsym XF86MonBrightnessUp exec light -A $bri-increment
+bindsym XF86MonBrightnessDown exec light -U $bri-increment
 
 # Volume adjustment increments
 set $vol-increment 5
@@ -268,7 +280,7 @@ set $ws10 10
 bindsym $mod+Shift+braceright    move workspace to output right
 bindsym $mod+Shift+braceleft    move workspace to output left
 
-# PROGRAM->WORKSPACE BINDINGS
+# PROGRAM->WORKSPACE BINDINGS (i3 only?)
 # Set default startup workspace for specific applications:
 assign [class="Alacritty"] $ws1
 assign [class="(?i)firefox"] $ws2
@@ -290,39 +302,6 @@ for_window [class=(?i)firefox] focus
 #for_window [class=Thunderbird] focus
 #for_window [class=TelegramDesktop] focus
 
-# Borders
-default_border pixel 1
-
-#####################
-# STARTUP - i3 ONLY #
-#####################
-
-# Load XResources
-#exec --no-startup-id xrdb -merge $HOME/.cache/wal/colors.Xresources
-
-# Start Polkit-Gnome to handle UAC prompts
-#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-
-# Display Setup (export from arandr as monitor)
-#exec --no-startup-id ~/.screenlayout/monitor.sh
-
-# Autostart applications using dex
-#exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart/
-
-# Start compositor 
-#exec --no-startup-id picom --experimental-backends
-
-# Set wallpaper (not needed with pywal)
-# exec --no-startup-id nitrogen --restore
-
-# Restore Pywal Colour Scheme and Wallpaper
-#exec --no-startup-id wal -R
-
-# Start notifications service (dunst)
-#exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
-
-# Set power savings
-#exec --no-startup-id xset s 480 dpms 600 600 600
-
-# Start Bar
-#exec_always --no-startup-id $HOME/.config/polybar/launch.sh -r
+###########
+# STARTUP #
+###########
