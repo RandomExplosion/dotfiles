@@ -50,7 +50,7 @@
                      "[ {} = up ] && xbacklight -time 0 +5"}"
    :onclick "light-toggle &"
        (box :space-evenly false :spacing 5
-            :tooltip "${nit_level <= 10 ? "Reducing brightness is disabled below 10%" :
+            :tooltip "${nit_level <= 0.5 ? "Reducing brightness is disabled below 10%" :
                                           "Click to turn off screen"}"
            (label :class "brn_icon glyph_jet" 
                   :text "${nit_level <= 25 ? "" : 

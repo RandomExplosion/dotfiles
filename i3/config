@@ -277,8 +277,8 @@ set $ws10 10
 
 # WORKSPACE->OUTPUT OVERRIDE KEYBINDS
 # Keybinds to move a workspace between outputs
-bindsym $mod+Shift+braceright    move workspace to output right
-bindsym $mod+Shift+braceleft    move workspace to output left
+bindsym $mod+Shift+braceright move workspace to output right
+bindsym $mod+Shift+braceleft move workspace to output left
 
 # PROGRAM->WORKSPACE BINDINGS (i3 only?)
 # Set default startup workspace for specific applications:

@@ -4,25 +4,25 @@
   (box :space-evenly false :spacing 0 :class "bat_bound"
     (label 
       :class "bat_icon glyph" 
-      :text "${bat_status == '' ? bat_removed :
+      :text "${bat_status == "" ? bat_removed :
                    battery >= 95 ? bat_icon_set['100']['${bat_status}'] :
-                   battery >= 85 ? bat_icon_set['90']['${bat_status}'] :
-                   battery >= 75 ? bat_icon_set['80']['${bat_status}'] :
-                   battery >= 65 ? bat_icon_set['70']['${bat_status}'] :
-                   battery >= 55 ? bat_icon_set['60']['${bat_status}'] :
-                   battery >= 45 ? bat_icon_set['50']['${bat_status}'] :
-                   battery >= 35 ? bat_icon_set['40']['${bat_status}'] :
-                   battery >= 25 ? bat_icon_set['30']['${bat_status}'] :
-                   battery >= 15 ? bat_icon_set['20']['${bat_status}'] :
-                   battery >= 05 ? bat_icon_set['10']['${bat_status}'] : 
-                   battery >= 00 ? bat_icon_set['0']['${bat_status}'] : ''}")   
+                   battery >= 85 ? bat_icon_set['090']['${bat_status}'] :
+                   battery >= 75 ? bat_icon_set['080']['${bat_status}'] :
+                   battery >= 65 ? bat_icon_set['070']['${bat_status}'] :
+                   battery >= 55 ? bat_icon_set['060']['${bat_status}'] :
+                   battery >= 45 ? bat_icon_set['050']['${bat_status}'] :
+                   battery >= 35 ? bat_icon_set['040']['${bat_status}'] :
+                   battery >= 25 ? bat_icon_set['030']['${bat_status}'] :
+                   battery >= 15 ? bat_icon_set['020']['${bat_status}'] :
+                   battery >= 05 ? bat_icon_set['010']['${bat_status}'] : 
+                   battery >= 00 ? bat_icon_set['000']['${bat_status}'] : ''}")  
     (box
       (revealer
         :transition "slideleft"
         :reveal {net_hover == "true" ? "false" : unit_hover == "true" ? "false" : "true"}
     
         (label 
-          :class "bat_text" :text '${battery}')))))
+          :class "bat_text" :text '${battery}' :justify "left")))))
 
 (defwidget notif_bell []
  (eventbox 
@@ -30,6 +30,23 @@
           :onclick notif_switch
    (label :class "${notif_initial != '' ? 'notif_icon' : 'notif_icon_off'} notif_bell"
           :text "${notif_initial}")))
+(defwidget date_time_box []
+  (box
+    (label :text "${date}"
+           :class "time-label"
+           :halign "end"
+           :valign "center"
+           :space-evenly "false"
+           :tooltip "time"
+           :orientation "h")
+    (label :text time0
+           :class "time-label"
+           :halign "end"
+           :valign "center"
+           :space-evenly "false"
+           :tooltip "time"
+           :orientation "h"
+           )))
 
 (defwidget cpu_temp_text []
  (eventbox 

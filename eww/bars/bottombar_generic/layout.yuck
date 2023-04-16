@@ -15,5 +15,6 @@
   (box :class "right_box" :orientation "h" :space-evenly false :halign "end" :spacing 0
     (access_box)
     (audio_box)
+    (date_time_box)
   ))
 

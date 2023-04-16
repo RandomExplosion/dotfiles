@@ -40,21 +40,21 @@
         (nit_box)
         (bat_indicator 
             :bat_critical "['Discharging':'', 'Charging':'󰢟']"
-            :battery    {EWW_BATTERY != '' ? EWW_BATTERY.BAT1.capacity : "No Battery"  }
-            :bat_status {EWW_BATTERY != '' ? EWW_BATTERY.BAT1.status   : '' }
+            :battery    {EWW_BATTERY != '' ? EWW_BATTERY["BAT0"]["capacity"] : "No Battery"  }
+            :bat_status {EWW_BATTERY != '' ? EWW_BATTERY["BAT0"]["status"]   : '' }
             :bat_removed "󱉝"
-            :bat_icon_set "[
-                '100' : '[`Discharging`: `󰁹`,`Charging`:`󰂅`]',
-                '090' : '[`Discharging`: `󰂂`,`Charging`:`󰂋`]',
-                '080' : '[`Discharging`: `󰂁`,`Charging`:`󰂊`]',
-                '070' : '[`Discharging`: `󰂀`,`Charging`:`󰢞`]',
-                '060' : '[`Discharging`: `󰁿`,`Charging`:`󰂉`]',
-                '050' : '[`Discharging`: `󰁾`,`Charging`:`󰢝`]',
-                '040' : '[`Discharging`: `󰁽`,`Charging`:`󰂈`]',
-                '030' : '[`Discharging`: `󰁼`,`Charging`:`󰂇`]',
-                '020' : '[`Discharging`: `󰁻`,`Charging`:`󰂆`]',
-                '010' : '[`Discharging`: `󰁺`,`Charging`:`󰢜`]',
-                '000' : '[`Discharging`: `󱟩`,`Charging`:`󰢟`]']")))
+            :bat_icon_set '{
+                "100": {"Discharging": "󰁹","Charging":"󰂅","Full":"󰂅"},
+                "090": {"Discharging": "󰂂","Charging":"󰂋"},
+                "080": {"Discharging": "󰂁","Charging":"󰂊"},
+                "070": {"Discharging": "󰂀","Charging":"󰢞"},
+                "060": {"Discharging": "󰁿","Charging":"󰂉"},
+                "050": {"Discharging": "󰁾","Charging":"󰢝"},
+                "040": {"Discharging": "󰁽","Charging":"󰂈"},
+                "030": {"Discharging": "󰁼","Charging":"󰂇"},
+                "020": {"Discharging": "󰁻","Charging":"󰂆"},
+                "010": {"Discharging": "󰁺","Charging":"󰢜"},
+                "000": {"Discharging": "󱟩","Charging":"󰢟"}}')))
 
 ; Box for networking stuff
 (defwidget network_box[]

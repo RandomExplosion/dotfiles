@@ -8,7 +8,7 @@ function nit_percent () {
     echo $((nit_current / max_brightness) * 100)
 }
 
-nit_percent
+nit_percent()
 
 inotifywait -q -m -e modify "$monitor" --format "%e" | while read -r _; do
     nit_current=$(<"$monitor")

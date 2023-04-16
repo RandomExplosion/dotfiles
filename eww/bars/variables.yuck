@@ -38,3 +38,5 @@
 (defpoll speed_toggle
   :interval "0s" 
   :run-while speed_hover "./bars/scripts/net_speed.zsh &")
+(defpoll time0 :interval "10s"  "date '+%H':%M")
+(defpoll date :interval "10s"  "date '+%b %d'")
