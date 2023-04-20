@@ -41,6 +41,16 @@
     --interactive-accent-hover:     rgb(var(--color2));
 }}
 
+.markdown-rendered td, .markdown-rendered th {{
+    border: var(--table-border-width) solid var(--text-muted);
+}}
+
+.markdown-rendered thead tr > th {{
+    border-color: var(--text-muted)
+}}
+
+border: var(--table-border-width) solid var(--table-border-color);
+
 .graph-view.color-line {{
     color: rgba(var(--foreground),0.1);
 }}
