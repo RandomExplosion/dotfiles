@@ -25,17 +25,17 @@
  (eventbox 
    :cursor "pointer" :onhover "eww update vol_hover=true"
    :onhoverlost "eww update vol_hover=false" 
-   :onscroll "${muted != "true" ? '[ {} = up ] && pamixer -i 5; \
-                                          [ {} = down ] && pamixer -d 5' : ""}"
+   :onscroll "${muted != "true" ? '[ {} = up ] && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; \
+                                          [ {} = down ] && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-' : ""}"
    :onclick "pamixer -t &" :onrightclick "control_box -pavu_toggle &"
         (box 
           :spacing 0 :space-evenly false
             (label 
               :class "${muted != "true" ? "vol_icon" : vol_icon_off} glyph_fira"
-              :text "${muted != "true" && current_vol > 60 ? vol_max :
-                       muted != "true" && current_vol > 25 ? vol_mid :
-                       muted != "true" && current_vol >= 10 ? vol_min : 
-                       muted != "true" && current_vol < 10 ? vol_min : ""}")
+              :text "${muted != "true" && current_vol > 0.60 ? vol_max :
+                       muted != "true" && current_vol > 0.25 ? vol_mid :
+                       muted != "true" && current_vol >= 0.10 ? vol_min : 
+                       muted != "true" && current_vol < 0.10 ? vol_min : ""}")
             (label :class "${muted == "false" ? "vol_num" : ""}"
                    :text "${muted == "false" ? vol_percent : ""}")
             (revealer :reveal vol_hover :transition "slideright" :duration "0.5s"
@@ -92,9 +92,9 @@
             (box 
               :space-evenly false 
               (label :class "mem_usage glyph_awesome" :text "󰍛")
-              (label :class "mem_usage_text" :text "${round(EWW_RAM.used_mem_perc, 0)}% (${round(EWW_RAM.used_mem/1048576,0)} MiB - Wrong)")))))
+              (label :class "mem_usage_text" :text "${round(EWW_RAM.used_mem_perc, 0)}% (${round((EWW_RAM.used_mem/1024)/1024,0)} MiB - Wrong)")))))
       (label 
         :text 
-          "${usage_hover == false ? "" : ""}"
+          "${usage_hover == false ? " " : ""}"
         :class "${usage_hover == false ? "stat_bolt glyph" :
                                          "stat_bolt_off glyph" }"))))

@@ -5,61 +5,88 @@ mic_source=$(pactl info | grep "Default Source" | awk '{print$3}')
 case "$1" in
     -v | --volume)
         function volume() {
-            pamixer --get-volume
-            pactl subscribe |
-            grep --line-buffered "Event 'change' on sink " |
+            # Get the initial volume of the default sink
+            wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed s/"Volume: "// | sed s/"\ \[MUTED\]"//
+            # Listen for changes in pipewire (no way to subscribe to wireplumber yet)
+            pw-mon |
+            # TODO: Find a better string to search for
+            grep --line-buffered "changed:" |
             while read -r _; do
-                pamixer --get-volume | cut -d " " -f1
+                wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed s/"Volume: "// | sed s/"\ \[MUTED\]"//
             done
         }
         volume | stdbuf -oL -eL uniq | cat
         ;;
     -s | --state)
         function state() {
-            pamixer --get-mute
-            pactl subscribe |
-            grep --line-buffered "Event 'change' on sink " |
+            # Get and return mute state for defualt sink
+            if [[ $( wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep "\ \[MUTED\]") ]]; then
+                echo true
+            else
+                echo false
+            fi
+            
+            # Listen for changes in pipewire (no way to subscribe to wireplumber yet)
+            pw-mon |
+            # TODO: Find a better string to search for
+            grep --line-buffered "changed:" |
             while read -r _; do
-                pamixer --get-mute
+                # Get and return mute state for defualt sink
+                if [[ $( wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep "\ \[MUTED\]") ]]; then
+                    echo true
+                else
+                    echo false
+                fi
             done
         }
         state | stdbuf -oL -eL uniq | cat
         ;;
     -mc|--mic_check)
         function mic_state(){
-            if [[ $(amixer get Capture | grep -i "\[on]") ]]; then
-                echo "false" | awk '{print}'
+            # Get and return mute state for defualt source
+            if [[ $( wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep "\ \[MUTED\]") ]]; then
+                echo true
             else
-                echo "true" | awk '{print}'
+                echo false
             fi
+
+            # Listen for changes in pipewire (no way to subscribe to wireplumber yet)
+            pw-mon |
+            # TODO: Find a better string to search for
+            grep --line-buffered "changed: " |
+            while read -r _; do
+                # Get and return mute state for defualt source
+                if [[ $( wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep "\ \[MUTED\]") ]]; then
+                    echo true
+                else
+                    echo false
+                fi
+            done
         }
         mic_state
         ;;
     -mt|--mic_toggle)
         function mic_toggle() {
-            if [[ $(amixer get Capture | grep -i "\[on]") ]]; then
-                eww update mic_initial="true"
-                pactl set-source-mute @DEFAULT_SOURCE@ true
-            else
-                eww update mic_initial="false"
-                pactl set-source-mute @DEFAULT_SOURCE@ false
-            fi
+            wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
         }
         mic_toggle
         ;;
     -mic_up)
-        pamixer --source $mic_source -i 5
+        wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+
         ;;
     -mic_down)
-        pamixer --source $mic_source -d 5
+        wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-
         ;;
     -mic_vol)
         function mic_volume (){
-            pamixer --source $mic_source --get-volume
-            pactl subscribe |
-            grep --line-buffered "Event 'change' on source " |
+            # Get the initial volume of the default source
+            wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | sed s/"Volume: "// | sed s/"\ \[MUTED\]"//
+            # Listen for changes in pipewire (no way to subscribe to wireplumber yet)
+            pw-mon |
+            # TODO: Find a better string to search for
+            grep --line-buffered "changed:" |
             while read -r _; do
-                pamixer --source $mic_source --get-volume
+                wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | sed s/"Volume: "// | sed s/"\ \[MUTED\]"//
             done
         }
         mic_volume | stdbuf -oL -eL uniq | cat

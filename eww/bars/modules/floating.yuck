@@ -3,7 +3,7 @@
 (defwidget bat_indicator [bat_critical bat_icon_set bat_removed battery bat_status]
   (box :space-evenly false :spacing 0 :class "bat_bound"
     (label 
-      :class "bat_icon glyph" 
+      :class "bat_icon glyph_meslo" 
       :text "${bat_status == "" ? bat_removed :
                    battery >= 95 ? bat_icon_set['100']['${bat_status}'] :
                    battery >= 85 ? bat_icon_set['090']['${bat_status}'] :

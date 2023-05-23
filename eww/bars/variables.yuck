@@ -27,6 +27,7 @@
 (defvar sticky_hover false)
 (defvar usage_hover false)
 (defvar tray_hover false)
+(defvar sensors_hover false)
 
 ; Psuedo variables
 (defpoll cpu_temp :interval "15s" "./bars/scripts/cpu_state.zsh -t")
@@ -40,3 +41,4 @@
   :run-while speed_hover "./bars/scripts/net_speed.zsh &")
 (defpoll time0 :interval "10s"  "date '+%H':%M")
 (defpoll date :interval "10s"  "date '+%b %d'")
+(defpoll sensor_data :interval "1" "sensors -j")
