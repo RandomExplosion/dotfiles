@@ -1,2 +1,4 @@
 use_nerdfont=true
-backend_device="Music-Pre-Amp"
+audio_backend="pulseaudio"
+#backend_device="HyperX Cloud Alpha Wireless Analog Stereo"
+backend_device="alsa_output.usb-HP__Inc_HyperX_Cloud_Alpha_Wireless_00000001-00.analog-stereo"
