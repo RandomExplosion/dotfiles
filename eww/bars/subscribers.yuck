@@ -1,13 +1,29 @@
-; True subscribers
+;;;;;;;;;;;;;;;;;;;;
+; True subscribers ;
+;;;;;;;;;;;;;;;;;;;;
+
+; Sway workspace Status
 (deflisten work_space "./bars/scripts/workspace.zsh")
-(deflisten muted "./bars/scripts/sound_state.zsh -s")
-(deflisten current_vol "./bars/scripts/sound_state.zsh -v")
+
+; Pipewire/Wireplumber Default Sink State
+(deflisten sink_vol "./bars/scripts/sound_state.zsh siv")
+(deflisten sink_muted "./bars/scripts/sound_state.zsh sims")
+
+
+; Pipewire/Wireplumber Default Source State
+(deflisten source_vol "./bars/scripts/sound_state.zsh sov")
+(deflisten source_muted "./bars/scripts/sound_state.zsh soms")
+
+; Brightness (NYI Wayland)
 (deflisten nit_level "./bars/scripts/nit_state.zsh")
-(deflisten mic_current_vol "./bars/scripts/sound_state.zsh -mic_vol")
+
+; Active Window Title (NYI Wayland)
 (deflisten window_title "./bars/scripts/window_title_fetch.zsh")
+
+; Network Status (NYI Wayland)
 (deflisten connect "./bars/scripts/network_manager.zsh") 
 
 ; Psuedo subscribers
-(deflisten mic_initial "./bars/scripts/sound_state.zsh -mc")
+; (deflisten mic_initial "./bars/scripts/sound_state.zsh -mc")
 (deflisten notif_initial "./bars/scripts/notif_state.zsh -c")
 (deflisten tray_initial "./bars/scripts/system_tray.zsh -c")

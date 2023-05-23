@@ -30,8 +30,10 @@
 ; Box for sound stuff
 (defwidget audio_box []
     (box :class "audio_box"
-        (mic_box :mic_vol_percent mic_current_vol)
-        (sound_box :vol_percent current_vol :vol_min "奄" :vol_mid "奔" :vol_max "墳" :vol_icon_off "OFF" :vol_num_off 0)))
+        ; Mic Controls
+        (sound_box :wp_id "@DEFAULT_AUDIO_SOURCE@" :vol_mute_state source_muted :vol_current source_vol :vol_mute_glyph "󰍭" :vol_min_glyph "󰍭" :vol_mid_glyph "󰍬" :vol_max_glyph "󰍬")
+        ; Speaker Controls
+        (sound_box :wp_id "@DEFAULT_AUDIO_SINK@" :vol_mute_state sink_muted :vol_current sink_vol :vol_mute_glyph "󰝟" :vol_min_glyph "" :vol_mid_glyph "" :vol_max_glyph "")))
 
 ; Box for access related stuff
 ; TODO: CPU Temperature
