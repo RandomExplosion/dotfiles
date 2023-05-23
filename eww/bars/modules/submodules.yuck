@@ -5,7 +5,7 @@
 (defwidget mic_box [mic_vol_percent]
  (eventbox 
    :cursor "pointer"
-   :onclick mic_toggle :onhover "eww update mic_hover=true" 
+   :onclick "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle" :onhover "eww update mic_hover=true" 
    :onhoverlost "eww update mic_hover=false"
    :onscroll "${mic_initial == false ? `[ {} = up ] && $HOME/.config/eww/scripts/sound_state.zsh -mic_up; \
                                           [ {} = down ] && $HOME/.config/eww/scripts/sound_state.zsh -mic_down` : ""}"
@@ -35,7 +35,7 @@
               :text "${muted != "true" && current_vol > 0.60 ? vol_max :
                        muted != "true" && current_vol > 0.25 ? vol_mid :
                        muted != "true" && current_vol >= 0.10 ? vol_min : 
-                       muted != "true" && current_vol < 0.10 ? vol_min : ""}")
+                       muted != "true" && current_vol < 0.10 ? vol_min : "󰝟 "}")
             (label :class "${muted == "false" ? "vol_num" : ""}"
                    :text "${muted == "false" ? vol_percent : ""}")
             (revealer :reveal vol_hover :transition "slideright" :duration "0.5s"
