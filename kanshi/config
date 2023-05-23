@@ -1,0 +1,13 @@
+profile dell_xps15 {
+	output 'Sharp Corporation 0x1476 Unknown' mode 3840x2160 position 0,0
+}
+
+profile dell_xps15_clamshell {
+	 # output 'Sharp Corporation 0x1476 Unknown' disable
+	 # output 'SAC LED MONITOR 0x00007F39' mode 1920x1080 position 0,0
+	 # output 'SAC LED MONITOR 0x00007F39' mode 1920x1080 position 1920,0
+	 
+	 output eDP-1 mode 3840x2160 position 0,2159 scale 2
+	 output DP-6 mode 1920x1080 position 0,0
+	 output DP-5 mode 1920x1080 position 1920,0
+}
