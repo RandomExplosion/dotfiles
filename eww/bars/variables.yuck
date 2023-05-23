@@ -32,13 +32,24 @@
 ; Psuedo variables
 (defpoll cpu_temp :interval "15s" "./bars/scripts/cpu_state.zsh -t")
 (defpoll time :interval "60s" `date '+%I:%M %p'`)
+; Query for usage statistics data only while revealer is expanded 
 (defpoll usage_toggle
   :interval "5s"
   :initial "./bars/scripts/usage_data.zsh"
-  :run-while usage_hover "./bars/scripts/usage_data.zsh &")
+  :run-while usage_hover
+  "./bars/scripts/usage_data.zsh &")
+
+; Query for usage statistics data only while revealer is expanded 
 (defpoll speed_toggle
   :interval "0s" 
-  :run-while speed_hover "./bars/scripts/net_speed.zsh &")
+  :run-while speed_hover
+  "./bars/scripts/net_speed.zsh &")
+
 (defpoll time0 :interval "10s"  "date '+%H':%M")
 (defpoll date :interval "10s"  "date '+%b %d'")
-(defpoll sensor_data :interval "1" "sensors -j")
+
+; Query lm-sensors for sensor data only while the sensors revealer is expanded 
+(defpoll sensors
+  :interval "5s" 
+  :run-while sensors_hover
+  "sensors -j")

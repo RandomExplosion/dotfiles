@@ -55,6 +55,21 @@
     // margin-right: 1px;
 }
 
+.sensor_glyph,
+.sensor_text, {
+    @extend .glyph;
+    color: $color5;
+}
+
+.sensor_glyph_critical {
+    @extend .sensor_glyph;
+    color: $color4;
+}
+.sensor_text_critical {
+    @extend .sensor_text;
+    color: $color4;
+}
+
 .cpu_usage,
 .cpu_usage_text {
     color: $color4;
@@ -79,6 +94,7 @@
 
 .stat_bolt {
     color: $color8;
+    padding: 0px 4px 0px 0px;
 }
 
 .stat_bolt_off {

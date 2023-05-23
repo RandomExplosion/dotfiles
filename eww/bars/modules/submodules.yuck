@@ -25,9 +25,9 @@
  (eventbox 
    :cursor "pointer" :onhover "eww update vol_hover=true"
    :onhoverlost "eww update vol_hover=false" 
-   :onscroll "${muted != "true" ? '[ {} = up ] && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; \
-                                          [ {} = down ] && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-' : ""}"
-   :onclick "pamixer -t &" :onrightclick "control_box -pavu_toggle &"
+   :onscroll "${muted != "true" ? '[ {} = up ] && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; \
+                                          [ {} = down ] && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+' : ""}"
+   :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" :onrightclick "control_box -pavu_toggle &"
         (box 
           :spacing 0 :space-evenly false
             (label 
@@ -95,6 +95,43 @@
               (label :class "mem_usage_text" :text "${round(EWW_RAM.used_mem_perc, 0)}% (${round((EWW_RAM.used_mem/1024)/1024,0)} MiB - Wrong)")))))
       (label 
         :text 
-          "${usage_hover == false ? " " : ""}"
+          "${usage_hover == false ? "󰓅" : ""}"
         :class "${usage_hover == false ? "stat_bolt glyph" :
+                                         "stat_bolt_off glyph" }"))))
+
+(defwidget sensors_box []
+  (eventbox
+          :onhover "eww update sensors_hover=true;${sensors}"
+          :onhoverlost "eww update sensors_hover=false"
+    (box :class "container_box" :space-evenly false :spacing 0
+      (revealer :reveal sensors_hover :transition "slideleft" :duration "0.5s"
+          (box 
+              :space-evenly false :spacing 8
+            ; CPU PACKAGE TEMPERATURE              
+            (box :space-evenly false
+              ; TODO: Dedicated scss classes for usage labels
+
+              (label :class "${sensors["coretemp-isa-0000"]["Package id 0"]["temp1_crit_alarm"] != 1 ? "sensor_glyph" : "sensor_glyph_critical" }" :text "󰻠")
+              (label :text "${round(sensors["coretemp-isa-0000"]["Package id 0"]["temp1_input"], 0)}󰔄"))
+
+            ; WIFI PACKAGE TEMPERATURE
+            (box :space-evenly false
+              (label :class "${round(sensors["ath10k_hwmon-pci-0200"]["temp1"]["temp1_input"], 0) < 60 ? "sensor_glyph" : "sensor_glyph_critical" }" :text "  ")
+              (label :text "${round(sensors["ath10k_hwmon-pci-0200"]["temp1"]["temp1_input"], 0)}󰔄"))
+              
+            ; FANS
+            (box :space-evenly false
+              ; TODO: Identify which fan is fan 1 and which fan is fan2 (arrange readings accordingly)
+              (label :class "sensor_glyph" :text "󰈐 ")
+              (label :text "${round(sensors["dell_smm-isa-0000"]["fan1"]["fan1_input"], 0)},${round(sensors["dell_smm-isa-0000"]["fan2"]["fan2_input"], 0)} RPM"))
+
+            ; Drive
+            (box :space-evenly false
+              (label :class "${sensors["nvme-pci-0300"]["Composite"]["temp1_alarm"] != 1 ? "sensor_glyph" : "sensor_glyph_critical" }" :text " ")
+              (label :text "${round(sensors["nvme-pci-0300"]["Composite"]["temp1_input"], 0)}󰔄"))))
+              
+      (label 
+        :text 
+          "${sensors_hover == false ? "󱩱" : ""}"
+        :class "${sensors_hover == false ? "stat_bolt glyph" :
                                          "stat_bolt_off glyph" }"))))
