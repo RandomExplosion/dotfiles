@@ -79,11 +79,18 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 
 # List Outputs with $ sway-msg -t get_outputs
 output eDP-1 resolution 3840x2160 position 3840,0 
-
-output HDMI-A-1 resolution 1920x1080
+output DP-3 disable
+output HDMI-A-1 disable
+#output HDMI-A-1 resolution 1920x1080
+# output DP-3 resolution 1920x1080 position -1920,0
+# output HDMI-A-1 resolution 1920x1080 position 0,0
 
 # Set Wallpaper (path read from pywal cache in # APPEARANCE #)
 output "*" background $wallpaper fill
+
+# Run Kanshi to handle smart display setup
+# NOTE: Commented out as the kanshi.service systemd unit should handle this at login :)
+# exec kanshi
 
 #####################
 # IDLE - (SWAY ONLY)#
@@ -199,7 +206,7 @@ bindsym $mod+a focus parent
 bindsym $mod+Return exec --no-startup-id $term
 
 # Obsidian Quick Launch
-bindsym $mod+o exec --no-startup-id obsidian
+bindsym $mod+o exec --no-startup-id dex $HOME/.local/share/application/md.Obsidian.obsidian
 
 # Firefox Quick Launch
 bindsym $mod+Shift+w exec --no-startup-id firefox
@@ -225,6 +232,11 @@ bindsym $mod+c kill
 ################################
 # KEYBINDS - MULTIMEDIA OUTPUT #
 ################################
+
+# Switch to docked output settings
+bindsym $mod+p exec "swaymsg output eDP-1 resolution 1920x1080 position 1920,0 && swaymsg output DP-3 resolution 1920x1080 position -1920,0 && swaymsg output HDMI-A-1 resolution 1920x1080 position 0,0"
+# Switch to standalone output settings 
+bindsym $mod+Shift+p exec "swaymsg output eDP-1 resolution 3840x2160 position 3840,0 && swaymsg output DP-3 disable && swaymsg output HDMI-A-1 disable"
 
 # Brightness
 set $bri-increment 5
@@ -266,6 +278,14 @@ set $ws8 8:
 set $ws9 9
 set $ws10 10
 
+# WORKSPACE->OUTPUT OVERRIDE KEYBINDS
+# Keybinds to move a workspace between outputs
+# bindsym $mod+Shift+braceright move workspace to output right
+# bindsym $mod+Shift+braceleft move workspace to output left
+
+bindsym $mod+Shift+bracketright move workspace to output right
+bindsym $mod+Shift+bracketleft move workspace to output left
+
 # WORKSPACE->OUTPUT BINDINGS
 # Assign workspaces to default outputs
 # Get output names from xrandr or arandr (i3/xorg) or $ sway-msg -t get_outputs (sway/wayland)  
@@ -274,11 +294,6 @@ set $ws10 10
 #workspace $ws3 output HDMI-0
 #workspace $ws4 output HDMI-0
 #workspace $ws5 output HDMI-0
-
-# WORKSPACE->OUTPUT OVERRIDE KEYBINDS
-# Keybinds to move a workspace between outputs
-bindsym $mod+Shift+braceright move workspace to output right
-bindsym $mod+Shift+braceleft move workspace to output left
 
 # PROGRAM->WORKSPACE BINDINGS (i3 only?)
 # Set default startup workspace for specific applications:
