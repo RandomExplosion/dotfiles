@@ -3,10 +3,13 @@
 ###########
 
 # Don't use xwayland (gross)
-xwayland disable
+# xwayland disable
 
 # Fix for GTK Apps loading slowly
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+# Set relevant environment variables
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 # Set up Clipboard for use across windows (SWAY ONLY)
 exec wl-paste -t text --watch clipman store --no-persist
@@ -25,6 +28,10 @@ set $launcher tofi-drun
 
 # Set Compose Key to PrtScr
 exec swaymsg 'input * xkb_options compose:prsc'
+
+# Launch ActivityWatcher to track screen time
+exec aw-server
+exec sleep 5 && aw-watcher-window-wayland
 
 ##############
 # APPEARANCE #
@@ -90,7 +97,7 @@ output "*" background $wallpaper fill
 
 # Run Kanshi to handle smart display setup
 # NOTE: Commented out as the kanshi.service systemd unit should handle this at login :)
-# exec kanshi
+exec --no-startup-id sleep 2 && kanshi
 
 #####################
 # IDLE - (SWAY ONLY)#
@@ -212,7 +219,9 @@ bindsym $mod+o exec --no-startup-id dex $HOME/.local/share/application/md.Obsidi
 bindsym $mod+Shift+w exec --no-startup-id firefox
 
 # Take Screenshots
-bindsym $mod+Shift+s exec --no-startup-id flameshot gui
+# bindsym $mod+Shift+s exec --no-startup-id flameshot gui
+# bindsym $mod+$alt+Shift+s exec grim -g "$(slurp -d)" - | wl-copy -t image/png
+bindsym $mod++Shift+s exec grim -g "$(slurp -d)" - | wl-copy -t image/png
 
 # Reload Config
 bindsym $mod+Shift+c reload
@@ -228,6 +237,9 @@ bindsym $mod+c kill
 
 # SHUTDOWN/EXIT
 #TODO: SHUTDOWN WOFI MENU
+
+# Toggle OBS Recording
+bindsym $mod+$alt+r exec obs-cli --host 127.0.0.1 --port 4055 --password POGYv2JKiuh9CJiQ 
 
 ################################
 # KEYBINDS - MULTIMEDIA OUTPUT #

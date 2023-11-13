@@ -1,13 +1,88 @@
-profile dell_xps15 {
+profile dell_xps15_standalone {
+	# Close any open eww bars
+	exec eww close-all
+
+	# Configure the laptop screen
 	output 'Sharp Corporation 0x1476 Unknown' mode 3840x2160 position 0,0
+
+	# Resume swayidle if currently stopped
+	exec pkill -CONT swayidle
+	
+	# Start the bar after a 1 second delay
+	exec sleep 1 && eww open bottombar_laptop_standalone
 }
 
-profile dell_xps15_clamshell {
+profile dell_xps15_docked {
 	 # output 'Sharp Corporation 0x1476 Unknown' disable
 	 # output 'SAC LED MONITOR 0x00007F39' mode 1920x1080 position 0,0
-	 # output 'SAC LED MONITOR 0x00007F39' mode 1920x1080 position 1920,0
-	 
+	 # output 'SAC LED MONITOdffdsadslllhR 0x00007F39' mode 1920x1080 position 1920,0
+
+	 # Close any open eww windows
+	 exec eww close-all
+
+	 # Configure outputs
 	 output eDP-1 mode 3840x2160 position 0,2159 scale 2
 	 output DP-6 mode 1920x1080 position 0,0
-	 output DP-5 mode 1920x1080 position 1920,0
+     output DP-5 mode 1920x1080 position 1920,0
+	 
+	 # Relaunch all eww bars after 5s delay
+	 exec sleep 5 && eww open-many bottombar_laptop_docked bottombar_left bottombar_right
+
+	 # Cycle the laptop screen in case the lockup bug occurred
+	 exec swaymsg output eDP-1 power off && sleep 1 && swaymsg output eDP-1 disable && sleep 1 && swaymsg output eDP-1 power on && sleep 1 && swaymsg output eDP-1 enable
+
+	 # Stop swayidle
+	 exec pkill -STOP swayidle
+}
+
+# profile dell_xps15_docked_dad {
+# 	 # output 'Sharp Corporation 0x1476 Unknown' disable
+# 	 # output 'SAC LED MONITOR 0x00007F39' mode 1920x1080 position 0,0
+# 	 # output 'SAC LED MONITOdffdsadslllhR 0x00007F39' mode 1920x1080 position 1920,0
+# 
+# 	 # Close any open eww windows
+# 	 exec eww close-all
+# 
+# 	 # Configure outputs
+# 	 output eDP-1 mode 3840x2160 position 0,2159 scale 2
+# 	 output DP-4 mode 1920x1080 position 0,0
+# 	 output DP-6 mode 1920x1080 position 1940,0
+# 
+# 	 # Fix left monitor because for some reason kanshi doesn't enable it?
+#      # exec swaymsg output DP-4 enable mode 1920x1080 position 0 0
+# 	 
+# 	 # Relaunch all eww bars after 5s delay
+# 	 exec sleep 5 && eww open-many bottombar_laptop_docked bottombar_left bottombar_right
+# 
+# 	 # Cycle the laptop screen in case the lockup bug occurred
+# 	 exec swaymsg output eDP-1 power off && sleep 1 && swaymsg output eDP-1 disable && sleep 1 && swaymsg output eDP-1 power on && sleep 1 && swaymsg output eDP-1 enable
+# 
+# 	 # Stop swayidle
+# 	 exec pkill -STOP swayidle
+# }
+
+profile dell_xps15_docked_down {
+	 # output 'Sharp Corporation 0x1476 Unknown' disable
+	 # output 'SAC LED MONITOR 0x00007F39' mode 1920x1080 position 0,0
+	 # output 'SAC LED MONITOdffdsadslllhR 0x00007F39' mode 1920x1080 position 1920,0
+
+	 # Close any open eww windows
+	 exec eww close-all
+
+	 # Configure outputs
+	 output eDP-1 mode 3840x2160 position 0,2159 scale 2
+	 output DP-6 mode 1920x1080 position 0,0
+	 output DP-4 mode 1920x1080 position 1940,0
+
+	 # Fix left monitor because for some reason kanshi doesn't enable it?
+     exec swaymsg output DP-6 enable mode 1920x1080 position 0 0
+	 
+	 # Relaunch all eww bars after 5s delay
+	 exec sleep 5 && eww open-many bottombar_laptop_docked bottombar_left bottombar_right
+
+	 # Cycle the laptop screen in case the lockup bug occurred
+	 exec swaymsg output eDP-1 power off && sleep 1 && swaymsg output eDP-1 disable && sleep 1 && swaymsg output eDP-1 power on && sleep 1 && swaymsg output eDP-1 enable
+
+	 # Stop swayidle
+	 exec pkill -STOP swayidle
 }

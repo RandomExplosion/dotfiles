@@ -15,22 +15,21 @@
   (eventbox 
    :cursor "pointer" :onhover "eww update vol_hover=true"
    :onhoverlost "eww update vol_hover=false"
-   :onscroll "${vol_mute_state != "true" ? '[ {} = up ] && wpctl set-volume ${wp_id} 1%+; \
-                                          [ {} = down ] && wpctl set-volume ${wp_id} 1%-' : ""}"
+   :onscroll "${vol_mute_state != "true" ? '[ {} = up ] && wpctl set-volume ${wp_id} 2%-; \
+                                          [ {} = down ] && wpctl set-volume ${wp_id} 2%+' : ""}"
    :onclick "wpctl set-mute ${wp_id} toggle" :onrightclick "control_box -pavu_toggle &"
         (box 
-          :spacing 0 :space-evenly false
+          :spacing 0
+          :space-evenly false
             (label 
               :class "${vol_mute_state != "true" ? "vol_glyph" : "vol_glyph_off" } glyph_fira"
               :text "${vol_mute_state != "true" && vol_current > 0.60 ? vol_max_glyph :
                        vol_mute_state != "true" && vol_current > 0.25 ? vol_mid_glyph :
                        vol_mute_state != "true" && vol_current >= 0.10 ? vol_min_glyph : 
                        vol_mute_state != "true" && vol_current < 0.10 ? vol_min_glyph : vol_mute_glyph }")
-            (label :class "${vol_mute_state == "false" ? "vol_num" : ""}"
-                   :text "${vol_mute_state == "false" ? vol_current : ""}")
-            (revealer :reveal vol_hover :transition "slideright" :duration "0.5s"
-              (label :class "${vol_mute_state == "true" ? "vol_num_off" : ""}"
-                     :text "${vol_mute_state == "true" ? "Muted" : ""}"))))) 
+            (label ; :visible {!vol_mute_state}
+                   :class "vol_num"
+                   :text {vol_mute_state == false ? "${round(vol_current * 100,0)}%" : "MUT"}))))
 
 ; FIXME: Fix this so it works :)
 (defwidget nit_box []
@@ -97,7 +96,7 @@
 ; TODO: Refactor to be less hardware specific (widget parameters?)
 (defwidget sensors_box []
   (eventbox
-          :onhover "eww update sensors_hover=true;${sensors}"
+          :onhover "eww update sensors_hover=true"
           :onhoverlost "eww update sensors_hover=false"
     (box :class "container_box" :space-evenly false :spacing 0
       (revealer :reveal sensors_hover :transition "slideleft" :duration "0.5s"
@@ -119,15 +118,22 @@
             (box :space-evenly false
               ; TODO: Identify which fan is fan 1 and which fan is fan2 (arrange readings accordingly)
               (label :class "sensor_glyph" :text "󰈐 ")
-              (label :text "${round(sensors["dell_smm-isa-0000"]["fan1"]["fan1_input"], 0)},${round(sensors["dell_smm-isa-0000"]["fan2"]["fan2_input"], 0)} RPM"))
+              (label :text "${round(sensors["dell_smm-isa-0000"]["fan1"]["fan1_input"], 0)},${round(sensors["dell_smm-isa-0000"]["fan2"]["fan2_input"], 0)} RPM")
+              ;(box :class "resource_dial_box" :orientation "v" :valign "center" :halign "center"
+              ;
+              ;  (circular-progress  :class "resource_dial_ring"
+              ;                      :value {(sensors["dell_smm-isa-0000"]["fan1"]["fan1_input"] / sensors["dell_smm-isa-0000"]["fan1"]["fan1_max"]) * 100} 
+              ;                      :start-at 0
+              ;                      :thickness 20
+              ;    (label :text {"󰈐"})))
+              )
 
             ; Drive
             (box :space-evenly false
               (label :class "${sensors["nvme-pci-0300"]["Composite"]["temp1_alarm"] != 1 ? "sensor_glyph" : "sensor_glyph_critical" }" :text " ")
               (label :text "${round(sensors["nvme-pci-0300"]["Composite"]["temp1_input"], 0)}󰔄"))))
-              
+      
       (label 
-        :text 
-          "${sensors_hover == false ? "󱩱" : ""}"
-        :class "${sensors_hover == false ? "stat_bolt glyph" :
-                                         "stat_bolt_off glyph" }"))))
+        :text "󱩱"
+        :class "stat_bolt glyph"
+        :visible {!sensors_hover} ))))

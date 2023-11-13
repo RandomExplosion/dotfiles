@@ -5,13 +5,26 @@
 (include "./bars/modules/submodules.yuck")
 (include "./bars/modules/floating.yuck")
 
-(defwidget bottombar[]
+(defwidget bottombar_laptop[output_name]
   (centerbox :class "main_box" :orientation "h"
-  	(left_box)
-    (center_box)
-	  (right_box)))
+  	(left_box :output_name output_name)
+    (center_box :output_name output_name)
+	  (right_box :output_name output_name)))
 
-(defwindow bottombar
+(defwindow bottombar_laptop_docked
+  :monitor 2
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "32px"
+                      :anchor "bottom center")
+  :reserve (struts :side "bottom" :distance "4%")
+  :stacking "fg"
+  :exclusive "true"
+  (bottombar_laptop :output_name "eDP-1"))
+
+(defwindow bottombar_laptop_standalone
   :monitor 0
   :windowtype "dock"
   :geometry (geometry :x "0%"
@@ -22,4 +35,44 @@
   :reserve (struts :side "bottom" :distance "4%")
   :stacking "fg"
   :exclusive "true"
-  (bottombar))
+  (bottombar_laptop :output_name "eDP-1"))
+
+(defwidget bottombar_left[output_name]
+  (centerbox :class "main_box" :orientation "h"
+  	(left_box :output_name output_name)
+    ;(label :text "Left")
+    (center_box :output_name output_name)
+	  (right_box :output_name output_name)))
+
+(defwindow bottombar_left
+  :monitor 1
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "32px"
+                      :anchor "bottom center")
+  :reserve (struts :side "bottom" :distance "4%")
+  :stacking "fg"
+  :exclusive "true"
+  (bottombar_left :output_name "DP-6"))
+  
+(defwidget bottombar_right[output_name]
+  (centerbox :class "main_box" :orientation "h"
+  	(left_box :output_name output_name)
+    ;(label :text "right")
+    (center_box :output_name output_name)
+	  (right_box :output_name output_name)))
+
+(defwindow bottombar_right
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "32px"
+                      :anchor "bottom center")
+  :reserve (struts :side "bottom" :distance "4%")
+  :stacking "fg"
+  :exclusive "true"
+  (bottombar_right :output_name "DP-4"))

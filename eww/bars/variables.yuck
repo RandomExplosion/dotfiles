@@ -30,7 +30,7 @@
 (defvar sensors_hover false)
 
 ; Psuedo variables
-(defpoll cpu_temp :interval "15s" "./bars/scripts/cpu_state.zsh -t")
+;(defpoll cpu_temp :interval "15s" "./bars/scripts/cpu_state.zsh -t")
 (defpoll time :interval "60s" `date '+%I:%M %p'`)
 ; Query for usage statistics data only while revealer is expanded 
 (defpoll usage_toggle

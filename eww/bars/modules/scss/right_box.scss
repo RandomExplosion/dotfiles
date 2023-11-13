@@ -59,8 +59,6 @@
     font-size: 20px;
 }
 
-
-
 .mic_box_text {
     padding: 0px 0px 0px 2px;
 }
@@ -71,12 +69,12 @@
 }
 
 .vol_num,
-.vol_icon {
+.vol_glyph {
     color: $color5;
     margin-left: 1px;
 }
 
-.vol_icon_off {
+.vol_glyph_off {
     color: $foreground;
 }
 
@@ -86,7 +84,7 @@
 
 .vol_num,
 .vol_num_off {
-    padding: 0px 0px 0px 5px;
+    padding: 0px 0px 0px 8px;
 }
 
 .brn_num,

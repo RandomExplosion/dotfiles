@@ -20,6 +20,7 @@
     @extend .container_box;
     background-color: mix($background, transparent, 80%);
     margin: 5px 0px;
+    padding-right: 7px;
     border-radius: 8px;
     font-family: "MesloLGS NF";
     font-weight: bold;
@@ -50,8 +51,7 @@
 .empty_workspace {
     @extend .glyph_meslo;
     padding-left: 4px;
-    padding-right: 4px;
-    margin-left: 1px;
+    padding-right: 6px;
     // margin-right: 1px;
 }
 
@@ -107,7 +107,27 @@
 }
 
 .audio_box {
-    @extend .container_box
+    @extend .container_box;
 }
+
+.resource_dial_box {
+    background-color: $background;
+    border: 0px solid #FF0000;
+    border-radius: 100%;
+}
+
+.resource_dial_ring {
+    color: #FF0000;
+}
+
+.resource_dial_glyph {
+    @extend .sensor-glyph;
+    color: $color4;
+    background-color: $background;
+	  border: 0px solid $foreground;
+    border-radius: 100%;
+    padding: 2px;
+}
+
 
 @import "./widgets/floating_left.scss";

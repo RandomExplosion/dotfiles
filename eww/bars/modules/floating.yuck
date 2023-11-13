@@ -31,7 +31,7 @@
    (label :class "${notif_initial != '' ? 'notif_icon' : 'notif_icon_off'} notif_bell"
           :text "${notif_initial}")))
 (defwidget date_time_box []
-  (box
+  (box :spacing 4
     (label :text "${date}"
            :class "time-label"
            :halign "end"
@@ -48,20 +48,20 @@
            :orientation "h"
            )))
 
-(defwidget cpu_temp_text []
- (eventbox 
-   :tooltip "Current CPU temperature" 
-     (box 
-       :space-evenly false :spacing 0
-       (label 
-        :class "${cpu_temp >= 60 ? "cpu_hot glyph_awesome" : "cpu_normal glyph"}"
-        :text "${cpu_temp >= 60 ? "" : "瑩"}")
-       (revealer
-            :transition "slideright"
-            :reveal "${usage_hover == true ? "false" : "true" }"
-           (label 
-             :class "${cpu_temp >= 60 ? "cpu_hot cpu_text" : "cpu_normal"}"
-             :text "${cpu_temp}°C")))))
+; (defwidget cpu_temp_text []
+;  (eventbox 
+;    :tooltip "Current CPU temperature" 
+;      (box 
+;        :space-evenly false :spacing 0
+;        (label 
+;         :class "${cpu_temp >= 60 ? "cpu_hot glyph_awesome" : "cpu_normal glyph"}"
+;         :text "${cpu_temp >= 60 ? "" : "瑩"}")
+;        (revealer
+;             :transition "slideright"
+;             :reveal "${usage_hover == true ? "false" : "true" }"
+;            (label 
+;              :class "${cpu_temp >= 60 ? "cpu_hot cpu_text" : "cpu_normal"}"
+;              :text "${cpu_temp}°C")))))
 
 ; (defwidget layout_state []
 ;  (box

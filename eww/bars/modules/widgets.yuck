@@ -3,7 +3,7 @@
 ;
 
 ; WM Workspace Switcher
-(defwidget workspace_box[]
+(defwidget workspace_box[output_name]
     (eventbox
         :vexpand true
         :onhover "eww update work_space_hover=true"
@@ -11,14 +11,18 @@
     ;   :onscroll "[ {} = down ] && bspc desktop -f next; \
     ;             [ {} = up ] && bspc desktop -f prev"
 
-    (box
-        :vexpand true :class "workspace_box"
-        (for index in work_space
-            (eventbox
-                :cursor "pointer"
-                :onclick "i3-msg workspace ${index.name}"
-                (label
-                    :class {index.focused ? "focused_workspace" : "occupied_workspace"} :text {index.name}))))))
+        (box
+            :vexpand true :class "workspace_box"
+            ; Iterate over workspaces on this output
+            (for index in work_space
+                ; Eventbox to switch to workspace on click
+                (eventbox
+                    :cursor "pointer"
+                    :onclick "swaymsg workspace ${index.name}"
+                    :visible {index.output == output_name}
+                    (label
+                        :class {index.focused ? "focused_workspace" : "occupied_workspace"} :text {index.name}))))))
+                    
 ;    (label :text work_space))))
 
 ; Box for system resource utilisation
@@ -31,9 +35,9 @@
 (defwidget audio_box []
     (box :class "audio_box"
         ; Mic Controls
-        (sound_box :wp_id "@DEFAULT_AUDIO_SOURCE@" :vol_mute_state source_muted :vol_current source_vol :vol_mute_glyph "󰍭" :vol_min_glyph "󰍭" :vol_mid_glyph "󰍬" :vol_max_glyph "󰍬")
+        (sound_box :wp_id "@DEFAULT_AUDIO_SOURCE@" :vol_mute_state source_muted :vol_current source_vol :vol_mute_glyph "󰍭 " :vol_min_glyph "󰍭" :vol_mid_glyph "󰍬" :vol_max_glyph "󰍬")
         ; Speaker Controls
-        (sound_box :wp_id "@DEFAULT_AUDIO_SINK@" :vol_mute_state sink_muted :vol_current sink_vol :vol_mute_glyph "󰝟" :vol_min_glyph "" :vol_mid_glyph "" :vol_max_glyph "")))
+        (sound_box :wp_id "@DEFAULT_AUDIO_SINK@" :vol_mute_state sink_muted :vol_current sink_vol :vol_mute_glyph "󰝟 " :vol_min_glyph "" :vol_mid_glyph "" :vol_max_glyph "")))
 
 ; Box for access related stuff
 ; TODO: CPU Temperature
